@@ -21,7 +21,7 @@ interface ChannelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(items: List<ChannelEntity>)
-    
-    @Query("SELECT EXISTS(SELECT 1 FROM ${ChannelEntity.ENTITY_NAME})")
+
+    @Query("SELECT (SELECT COUNT(*) FROM ${ChannelEntity.ENTITY_NAME}) == 0")
     suspend fun isEmpty(): Boolean
 }

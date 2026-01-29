@@ -2,6 +2,7 @@ package com.vlada.data.di
 
 import android.content.Context
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.vlada.data.providers.ChannelProvider
 import dagger.Module
 import dagger.Provides
@@ -21,4 +22,11 @@ object ProvidersModule {
         appContext: Context, gson: Gson
     ): ChannelProvider =
         ChannelProvider(appContext, gson)
+    
+    @Provides
+    @Singleton
+    fun provideGson(): Gson {
+        return GsonBuilder()
+            .create()
+    }
 }
