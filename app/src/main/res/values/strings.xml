@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ChannelSearch</string>
+    <string name="all_empty">Nothing was found</string>
 </resources>
