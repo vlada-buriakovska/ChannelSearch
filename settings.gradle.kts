@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "ChannelSearch"
 include(":app")
+include(":data")
  
