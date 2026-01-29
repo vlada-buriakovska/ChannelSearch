@@ -17,6 +17,8 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemKey
 import com.vlada.domain.models.Channel
 import com.vlada.channels.R
+import com.vlada.channels.extensions.errorMessage
+import com.vlada.channels.ui.components.ErrorSnackBar
 
 
 @Composable
@@ -56,6 +58,13 @@ fun MainScreen(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = stringResource(R.string.all_empty),
                     style = MaterialTheme.typography.titleLarge
+                )
+            }
+            val errorMessage = pagingItems.errorMessage()
+            if (pagingItems.loadState.hasError && errorMessage != null) {
+                ErrorSnackBar(
+                    error = errorMessage,
+                    onDismissed = {}
                 )
             }
             if (pagingItems.loadState.refresh is LoadState.Loading) {
