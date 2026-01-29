@@ -13,6 +13,6 @@ interface RepositoriesModule {
 
     @Binds
     fun bindChannelRepository(
-        channelRepository: ChannelRepository
-    ): ChannelRepositoryImpl
+        channelRepository: ChannelRepositoryImpl
+    ): ChannelRepository
 }
