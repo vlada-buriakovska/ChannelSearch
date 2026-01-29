@@ -2,8 +2,10 @@
 agp = "9.0.0"
 coreKtx = "1.10.1"
 appcompat = "1.6.1"
+gson = "2.13.2"
 kotlin = "2.0.21"
 composeBom = "2024.09.00"
+kotlinxSerializationJson = "2.3.0"
 tvFoundation = "1.0.0-alpha07"
 tvMaterial = "1.0.0-alpha07"
 lifecycleRuntimeKtx = "2.6.1"
@@ -28,6 +30,7 @@ androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", versio
 androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -38,4 +41,5 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }
+kotlin-serialization= { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerializationJson" }
 
