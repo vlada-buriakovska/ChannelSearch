@@ -3,16 +3,14 @@ agp = "9.0.0"
 coreKtx = "1.10.1"
 appcompat = "1.6.1"
 gson = "2.13.2"
-kotlin = "2.0.21"
+kotlin = "2.3.0"
 composeBom = "2024.09.00"
 hilt = "2.59"
 hiltAndroid = "2.59"
 kotlinxCoroutines = "1.10.2"
-paging = "3.3.6"
+paging = "3.4.0"
 kotlinxSerializationJson = "2.3.0"
 room = "2.8.4"
-tvFoundation = "1.0.0-alpha07"
-tvMaterial = "1.0.0-alpha07"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 junit = "4.13.2"
@@ -20,8 +18,8 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 material = "1.10.0"
 jetbrainsKotlinJvm = "2.2.10"
-ksp = "2.2.10-2.0.2"
-
+ksp = "2.3.5"
+hiltNavigationCompose = "1.3.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -39,8 +37,6 @@ androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref =
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
-androidx-tv-foundation = { group = "androidx.tv", name = "tv-foundation", version.ref = "tvFoundation" }
-androidx-tv-material = { group = "androidx.tv", name = "tv-material", version.ref = "tvMaterial" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
@@ -49,7 +45,10 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 paging-runtime = { group = "androidx.paging", name = "paging-runtime-ktx", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
