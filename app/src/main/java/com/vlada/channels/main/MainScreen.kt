@@ -9,87 +9,40 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.paging.LoadState
-import androidx.paging.LoadState.NotLoading
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.itemKey
 import com.vlada.domain.models.Channel
-import com.vlada.channels.R
+import com.vlada.domain.models.ChannelCategory
 
 
 @Composable
 fun MainScreen(
-    searchQuery: String?,
-    pagingItems: LazyPagingItems<Channel>,
-    onEvent: (MainUiEvent) -> Unit,
+    channelsList: List<Channel>,
 ) {
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
+            .padding(top = 24.dp),
+        contentAlignment = Alignment.Center
     ) {
-        OutlinedTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 8.dp),
-            value = searchQuery ?: String(),
-            onValueChange = {
-                onEvent(MainUiEvent.OnQueryChanged(it))
-            },
-        )
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(1F)
-                .padding(top = 24.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            ChannelsList(pagingItems)
-
-            val isListEmpty = pagingItems.itemSnapshotList.isEmpty()
-            val isEndReached = pagingItems.loadState.append.endOfPaginationReached
-            val isEmpty = pagingItems.loadState.refresh is NotLoading && isListEmpty && isEndReached
-
-            if (isEmpty) {
-                Text(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    text = stringResource(R.string.all_empty),
-                    style = MaterialTheme.typography.titleLarge
-                )
-            }
-            if (pagingItems.loadState.refresh is LoadState.Loading) {
-                CircularProgressIndicator()
-            }
-        }
+        ChannelsList(channelsList)
     }
 }
 
 @Composable
 fun ChannelsList(
-    pagingItems: LazyPagingItems<Channel>,
+    list: List<Channel>,
 ) {
     LazyColumn {
         items(
-            count = pagingItems.itemCount,
-            key = pagingItems.itemKey { it.id }
+            count = list.size,
+            key = { list[it].id }
         ) { index ->
-            val item = pagingItems[index]
-            item?.let {
-                ChannelListItem(it)
-            }
+            val item = list[index]
+            ChannelListItem(item)
         }
         item {
-            if (pagingItems.loadState.append is LoadState.Loading) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    CircularProgressIndicator()
-                }
-            }
+            //TODO
+            // implement paging loading
         }
     }
 }
@@ -113,13 +66,7 @@ fun ChannelListItem(channel: Channel) {
                     style = MaterialTheme.typography.titleLarge
                 )
             }
-            channel.category?.value?.let {
-                Text(
-                    modifier = Modifier.padding(top = 4.dp),
-                    text = it,
-                    style = MaterialTheme.typography.bodyLarge
-                )
-            }
+            channel.category?.let { CategoryItem(it) }
         }
         if (channel.isLive == true) {
             Box(
@@ -131,4 +78,18 @@ fun ChannelListItem(channel: Channel) {
         }
     }
     HorizontalDivider()
+}
+
+@Composable
+fun CategoryItem(category: ChannelCategory) {
+    category.name?.let {
+        Text(
+            modifier = Modifier.padding(top = 4.dp),
+            text = it,
+            style = MaterialTheme.typography.bodyLarge
+        )
+    }
+    category.subCategory?.let {
+        CategoryItem(it)
+    }
 }

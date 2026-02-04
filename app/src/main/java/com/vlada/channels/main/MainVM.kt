@@ -2,41 +2,29 @@ package com.vlada.channels.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
-import com.vlada.domain.usecases.SearchChannelsUseCase
+import com.vlada.domain.models.Channel
+import com.vlada.domain.usecases.GetChannelsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainVM @Inject constructor(
-    private val searchChannelsUseCase: SearchChannelsUseCase
+    private val getChannelsUseCase: GetChannelsUseCase,
 ) : ViewModel() {
 
-    private val _searchQuery = MutableStateFlow<String?>(null)
-    val searchQuery = _searchQuery.asStateFlow()
-
-    @OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
-    val channelFlow = _searchQuery
-        .debounce(300)
-        .flatMapLatest { query ->
-            searchChannelsUseCase.invoke(SearchChannelsUseCase.Params(query))
-        }
-        .cachedIn(viewModelScope)
-
-    fun onEvent(event: MainUiEvent) {
-        when (event) {
-            is MainUiEvent.OnQueryChanged -> updateQuery(event.query)
-        }
+    private val _channelsList = MutableStateFlow<List<Channel>>(emptyList())
+    val channelsList = _channelsList.asStateFlow()
+    
+    init {
+        getChannels()
     }
 
-    private fun updateQuery(newQuery: String?) {
-        _searchQuery.value = newQuery
+    private fun getChannels() {
+        viewModelScope.launch {
+            _channelsList.value = getChannelsUseCase.invoke()
+        }
     }
-}
-
-sealed class MainUiEvent {
-    data class OnQueryChanged(val query: String?) : MainUiEvent()
 }
